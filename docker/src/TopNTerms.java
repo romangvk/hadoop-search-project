@@ -1,57 +1,42 @@
 package src;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import javax.swing.JPanel;
+import java.awt.CardLayout;
+import java.awt.Component;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JButton;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
-import java.awt.GridLayout;
 import javax.swing.BoxLayout;
 import javax.swing.SwingConstants;
 import java.awt.Dimension;
 
-public class TopNTerms extends JFrame {
+public class TopNTerms extends JPanel {
 
-	private JPanel contentPane;
 	private JTextField txtN;
 
 	/**
-	 * Launch the application.
+	 * Create the panel.
 	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					TopNTerms frame = new TopNTerms();
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
+	public TopNTerms(final CardLayout navigation, final JPanel parent) {
+		setBorder(new EmptyBorder(5, 5, 5, 5));
+		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		
+		JButton btnBack = new JButton("Back");
+		btnBack.setAlignmentX(Component.CENTER_ALIGNMENT);
+		btnBack.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				navigation.show(parent, "actions");
+
 			}
 		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public TopNTerms() {
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
-		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		setContentPane(contentPane);
-		contentPane.setLayout(new BoxLayout(contentPane, BoxLayout.Y_AXIS));
-		
-		JButton btnNewButton = new JButton("Back");
-		btnNewButton.setAlignmentX(0.5f);
-		contentPane.add(btnNewButton);
+		add(btnBack);
 		
 		JPanel panel = new JPanel();
-		contentPane.add(panel);
+		add(panel);
 		panel.setLayout(new BoxLayout(panel, BoxLayout.X_AXIS));
 		
 		txtN = new JTextField();
@@ -66,7 +51,7 @@ public class TopNTerms extends JFrame {
 		JTextArea txtrResults = new JTextArea();
 		txtrResults.setText("Results");
 		txtrResults.setEditable(false);
-		contentPane.add(txtrResults);
+		add(txtrResults);
 	}
 
 }
