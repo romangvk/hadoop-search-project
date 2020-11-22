@@ -11,9 +11,6 @@ class Main {
     Actions a = new Actions();
     a.setVisible(true);
 
-    ErrorDialog e = new ErrorDialog();
-    e.setVisible(true);
-
     LoadFiles l = new LoadFiles();
     l.setVisible(true);
 
