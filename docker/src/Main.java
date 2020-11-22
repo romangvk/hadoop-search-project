@@ -1,7 +1,6 @@
 package src;
 
 import src.Actions;
-import src.ErrorDialog;
 import src.LoadFiles;
 import src.SearchTerm;
 import src.TopNTerms;
