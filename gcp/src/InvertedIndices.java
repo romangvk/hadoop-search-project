@@ -89,15 +89,7 @@ public class InvertedIndices {
                     m.put(str, 1);
                 }
             }
-            context.write(key, formatMap(m));
-        }
-        
-        public Text formatMap(HashMap<String,Integer> m) {
-        	String text = "{";
-        	for(String key : m.keySet()) {
-        		text += '"' + key + '"' + ':' + m.get(key) + ',';
-        	}
-        	return new Text(text.substring(0, text.length() - 1)+'}');
+            context.write(key, new Text(m.toString()));
         }
     }
 
@@ -109,7 +101,7 @@ public class InvertedIndices {
             System.err.println("Usage: invertedindices <in> <out> [-skip skipPatternFile]");
             System.exit(2);
         }
-        Job job = Job.getInstance(conf, "word count");
+        Job job = Job.getInstance(conf, "inverted indices");
         job.setMapOutputKeyClass(Text.class);
         job.setMapOutputValueClass(Text.class);
         job.setJarByClass(InvertedIndices.class);
