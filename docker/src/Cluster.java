@@ -34,4 +34,6 @@ public class Cluster {
             output += "tolstoy" + '\n';
         return output + term;
     }
+
+
 }
