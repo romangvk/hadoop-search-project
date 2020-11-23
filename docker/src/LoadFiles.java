@@ -9,15 +9,16 @@ import javax.swing.JLabel;
 import javax.swing.border.EmptyBorder;
 import javax.swing.SwingConstants;
 import java.awt.Component;
-import javax.swing.JCheckBox;
+import javax.swing.JRadioButton;
 import javax.swing.JButton;
+import javax.swing.ButtonGroup;
 
 public class LoadFiles extends JPanel {
 
 	/**
 	 * Create the panel.
 	 */
-	public LoadFiles(final CardLayout navigation, final JPanel parent) {
+	public LoadFiles(final CardLayout navigation, final JPanel parent, final Cluster cluster) {
 		setBorder(new EmptyBorder(5, 5, 5, 5));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
@@ -26,20 +27,35 @@ public class LoadFiles extends JPanel {
 		lblChooseYourWriters.setHorizontalAlignment(SwingConstants.CENTER);
 		add(lblChooseYourWriters);
 
-		JCheckBox chckbxHugo = new JCheckBox("Hugo");
-		add(chckbxHugo);
+		final JRadioButton rdbtnHugo = new JRadioButton("Hugo");
+		rdbtnHugo.setSelected(true);
+		add(rdbtnHugo);
 
-		JCheckBox chckbxShakespeare = new JCheckBox("Shakespeare");
-		add(chckbxShakespeare);
+		final JRadioButton rdbtnShakespeare = new JRadioButton("Shakespeare");
+		add(rdbtnShakespeare);
 
-		JCheckBox chckbxTolstoy = new JCheckBox("Tolstoy");
-		add(chckbxTolstoy);
+		final JRadioButton rdbtnTolstoy = new JRadioButton("Tolstoy");
+		add(rdbtnTolstoy);
+
+		final JRadioButton rdbtnAll = new JRadioButton("All of the above");
+		add(rdbtnAll);
+
+		ButtonGroup writers = new ButtonGroup();
+		writers.add(rdbtnHugo);
+		writers.add(rdbtnShakespeare);
+		writers.add(rdbtnTolstoy);
+		writers.add(rdbtnAll);
 
 		JButton btnGenerateInvertedIndices = new JButton("Generate inverted indices");
 		btnGenerateInvertedIndices.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnGenerateInvertedIndices.addActionListener(new ActionListener() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				if (rdbtnAll.isSelected())
+					cluster.setAllFiles();
+				else
+					cluster.setFiles(rdbtnHugo.isSelected(), rdbtnShakespeare.isSelected(), rdbtnTolstoy.isSelected());
+				// do inverted indices
 				navigation.show(parent, "actions");
 			}
 		});

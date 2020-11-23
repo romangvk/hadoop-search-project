@@ -43,21 +43,21 @@ public class Cards extends JFrame {
         contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
         setContentPane(contentPane);
 
-        final JPanel cards;
-
         final CardLayout navigation = new CardLayout();
-        cards = new JPanel(navigation);
+        final JPanel cards = new JPanel(navigation);
 
-        LoadFiles l = new LoadFiles(navigation, cards);
+        final Cluster cluster = new Cluster();
+
+        LoadFiles l = new LoadFiles(navigation, cards, cluster);
         cards.add(l, "loadfiles");
 
         Actions a = new Actions(navigation, cards);
         cards.add(a, "actions");
 
-        SearchTerm s = new SearchTerm(navigation, cards);
+        SearchTerm s = new SearchTerm(navigation, cards, cluster);
         cards.add(s, "search");
 
-        TopNTerms t = new TopNTerms(navigation, cards);
+        TopNTerms t = new TopNTerms(navigation, cards, cluster);
         cards.add(t, "topn");
 
         navigation.show(cards, "loadfiles");
